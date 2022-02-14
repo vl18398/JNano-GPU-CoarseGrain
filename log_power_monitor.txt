@@ -1,0 +1,244 @@
+gpu_power_average = 231.000000 count = 7
+cpu_power_average = 1034.285714 count = 7
+in_power_average = 4326.857143 count = 7
+--------------------------------------
+gpu_power_average = 400.400000 count = 5
+cpu_power_average = 2498.400000 count = 5
+in_power_average = 4348.600000 count = 5
+--------------------------------------
+gpu_power_average = 1143.285714 count = 7
+cpu_power_average = 638.142857 count = 7
+in_power_average = 3288.571429 count = 7
+--------------------------------------
+gpu_power_average = 616.000000 count = 3
+cpu_power_average = 924.666667 count = 3
+in_power_average = 3470.000000 count = 3
+--------------------------------------
+gpu_power_average = 236.104972 count = 181
+cpu_power_average = 2772.944751 count = 181
+in_power_average = 5119.812155 count = 181
+--------------------------------------
+gpu_power_average = 516.434783 count = 184
+cpu_power_average = 3088.548913 count = 184
+in_power_average = 5652.092391 count = 184
+--------------------------------------
+gpu_power_average = 300.605948 count = 269
+cpu_power_average = 2668.776952 count = 269
+in_power_average = 5214.130112 count = 269
+--------------------------------------
+gpu_power_average = 154.000000 count = 3
+cpu_power_average = 797.333333 count = 3
+in_power_average = 2966.000000 count = 3
+--------------------------------------
+gpu_power_average = 385.000000 count = 4
+cpu_power_average = 887.000000 count = 4
+in_power_average = 3430.000000 count = 4
+--------------------------------------
+gpu_power_average = 385.000000 count = 4
+cpu_power_average = 1175.250000 count = 4
+in_power_average = 3818.000000 count = 4
+--------------------------------------
+gpu_power_average = 616.000000 count = 4
+cpu_power_average = 1426.000000 count = 4
+in_power_average = 3960.750000 count = 4
+--------------------------------------
+gpu_power_average = 154.000000 count = 4
+cpu_power_average = 925.000000 count = 4
+in_power_average = 3140.000000 count = 4
+--------------------------------------
+gpu_power_average = 642.000000 count = 3
+cpu_power_average = 1412.666667 count = 3
+in_power_average = 3726.000000 count = 3
+--------------------------------------
+gpu_power_average = 154.000000 count = 3
+cpu_power_average = 1772.333333 count = 3
+in_power_average = 4639.666667 count = 3
+--------------------------------------
+gpu_power_average = 385.000000 count = 4
+cpu_power_average = 713.250000 count = 4
+in_power_average = 3460.000000 count = 4
+--------------------------------------
+gpu_power_average = 847.750000 count = 4
+cpu_power_average = 1002.750000 count = 4
+in_power_average = 3353.750000 count = 4
+--------------------------------------
+gpu_power_average = 242.000000 count = 7
+cpu_power_average = 782.142857 count = 7
+in_power_average = 3489.571429 count = 7
+--------------------------------------
+gpu_power_average = 385.000000 count = 5
+cpu_power_average = 1233.600000 count = 5
+in_power_average = 3847.600000 count = 5
+--------------------------------------
+gpu_power_average = 385.000000 count = 6
+cpu_power_average = 1296.833333 count = 6
+in_power_average = 3931.833333 count = 6
+--------------------------------------
+gpu_power_average = 205.333333 count = 6
+cpu_power_average = 1157.000000 count = 6
+in_power_average = 4012.166667 count = 6
+--------------------------------------
+gpu_power_average = 154.000000 count = 2
+cpu_power_average = 1618.000000 count = 2
+in_power_average = 4318.000000 count = 2
+--------------------------------------
+gpu_power_average = 154.000000 count = 3
+cpu_power_average = 797.000000 count = 3
+in_power_average = 3087.000000 count = 3
+--------------------------------------
+gpu_power_average = 154.000000 count = 2
+cpu_power_average = 1310.000000 count = 2
+in_power_average = 3586.000000 count = 2
+--------------------------------------
+gpu_power_average = 385.333333 count = 6
+cpu_power_average = 925.166667 count = 6
+in_power_average = 3222.666667 count = 6
+--------------------------------------
+gpu_power_average = 898.333333 count = 3
+cpu_power_average = 1720.666667 count = 3
+in_power_average = 5239.666667 count = 3
+--------------------------------------
+gpu_power_average = 242.885426 count = 3273
+cpu_power_average = 2292.875649 count = 3273
+in_power_average = 4735.577452 count = 3273
+--------------------------------------
+gpu_power_average = 215.769047 count = 3347
+cpu_power_average = 2178.277861 count = 3347
+in_power_average = 4577.003884 count = 3347
+--------------------------------------
+gpu_power_average = 876.642164 count = 11645
+cpu_power_average = 1773.215973 count = 11645
+in_power_average = 5014.548733 count = 11645
+--------------------------------------
+gpu_power_average = 916.681963 count = 10700
+cpu_power_average = 1856.197290 count = 10700
+in_power_average = 5189.854393 count = 10700
+--------------------------------------
+gpu_power_average = 200.509210 count = 2606
+cpu_power_average = 2170.406754 count = 2606
+in_power_average = 4511.727936 count = 2606
+--------------------------------------
+gpu_power_average = 187.465853 count = 2211
+cpu_power_average = 2207.142017 count = 2211
+in_power_average = 4554.950701 count = 2211
+--------------------------------------
+gpu_power_average = 914.244672 count = 10839
+cpu_power_average = 1860.838915 count = 10839
+in_power_average = 5179.782452 count = 10839
+--------------------------------------
+gpu_power_average = 906.548155 count = 10840
+cpu_power_average = 1811.689576 count = 10840
+in_power_average = 5103.132934 count = 10840
+--------------------------------------
+gpu_power_average = 539.000000 count = 1
+cpu_power_average = 2698.000000 count = 1
+in_power_average = 5861.000000 count = 1
+--------------------------------------
+gpu_power_average = 770.000000 count = 1
+cpu_power_average = 2698.000000 count = 1
+in_power_average = 5586.000000 count = 1
+--------------------------------------
+gpu_power_average = 605798.000000 count = 1
+cpu_power_average = 605798.000000 count = 1
+in_power_average = 302899.000000 count = 1
+--------------------------------------
+gpu_power_average = 605798.000000 count = 1
+cpu_power_average = 605798.000000 count = 1
+in_power_average = 302899.000000 count = 1
+--------------------------------------
+gpu_power_average = 605798.000000 count = 1
+cpu_power_average = 605798.000000 count = 1
+in_power_average = 302899.000000 count = 1
+--------------------------------------
+gpu_power_average = 605798.000000 count = 1
+cpu_power_average = 605798.000000 count = 1
+in_power_average = 302899.000000 count = 1
+--------------------------------------
+gpu_power_average = 605798.000000 count = 1
+cpu_power_average = 605798.000000 count = 1
+in_power_average = 302899.000000 count = 1
+--------------------------------------
+gpu_power_average = 605798.000000 count = 1
+cpu_power_average = 605798.000000 count = 1
+in_power_average = 302899.000000 count = 1
+--------------------------------------
+gpu_power_average = 605798.000000 count = 1
+cpu_power_average = 605798.000000 count = 1
+in_power_average = 302899.000000 count = 1
+--------------------------------------
+gpu_power_average = 605798.000000 count = 1
+cpu_power_average = 605798.000000 count = 1
+in_power_average = 302899.000000 count = 1
+--------------------------------------
+gpu_power_average = 605798.000000 count = 45
+cpu_power_average = 605798.000000 count = 45
+in_power_average = 302899.000000 count = 45
+--------------------------------------
+gpu_power_average = 605798.000000 count = 167
+cpu_power_average = 605798.000000 count = 167
+in_power_average = 302899.000000 count = 167
+--------------------------------------
+gpu_power_average = 605798.000000 count = 190
+cpu_power_average = 605798.000000 count = 190
+in_power_average = 302899.000000 count = 190
+--------------------------------------
+gpu_power_average = 605798.000000 count = 175
+cpu_power_average = 605798.000000 count = 175
+in_power_average = 302899.000000 count = 175
+--------------------------------------
+gpu_power_average = 605798.000000 count = 148
+cpu_power_average = 605798.000000 count = 148
+in_power_average = 302899.000000 count = 148
+--------------------------------------
+gpu_power_average = 605798.000000 count = 145
+cpu_power_average = 605798.000000 count = 145
+in_power_average = 302899.000000 count = 145
+--------------------------------------
+gpu_power_average = 605798.000000 count = 155
+cpu_power_average = 605798.000000 count = 155
+in_power_average = 302899.000000 count = 155
+--------------------------------------
+gpu_power_average = 605798.000000 count = 184
+cpu_power_average = 605798.000000 count = 184
+in_power_average = 302899.000000 count = 184
+--------------------------------------
+gpu_power_average = 605798.000000 count = 174
+cpu_power_average = 605798.000000 count = 174
+in_power_average = 302899.000000 count = 174
+--------------------------------------
+gpu_power_average = 605798.000000 count = 143
+cpu_power_average = 605798.000000 count = 143
+in_power_average = 302899.000000 count = 143
+--------------------------------------
+gpu_power_average = 605798.000000 count = 162
+cpu_power_average = 605798.000000 count = 162
+in_power_average = 302899.000000 count = 162
+--------------------------------------
+gpu_power_average = 605798.000000 count = 152
+cpu_power_average = 605798.000000 count = 152
+in_power_average = 302899.000000 count = 152
+--------------------------------------
+gpu_power_average = 605798.000000 count = 118
+cpu_power_average = 605798.000000 count = 118
+in_power_average = 302899.000000 count = 118
+--------------------------------------
+gpu_power_average = 605798.000000 count = 156
+cpu_power_average = 605798.000000 count = 156
+in_power_average = 302899.000000 count = 156
+--------------------------------------
+gpu_power_average = 605798.000000 count = 87
+cpu_power_average = 605798.000000 count = 87
+in_power_average = 302899.000000 count = 87
+--------------------------------------
+gpu_power_average = 605798.000000 count = 179
+cpu_power_average = 605798.000000 count = 179
+in_power_average = 302899.000000 count = 179
+--------------------------------------
+gpu_power_average = 605798.000000 count = 184
+cpu_power_average = 605798.000000 count = 184
+in_power_average = 302899.000000 count = 184
+--------------------------------------
+gpu_power_average = 605798.000000 count = 142
+cpu_power_average = 605798.000000 count = 142
+in_power_average = 302899.000000 count = 142
+--------------------------------------
