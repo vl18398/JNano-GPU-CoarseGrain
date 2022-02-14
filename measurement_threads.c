@@ -28,23 +28,13 @@ void      *exit_status;
 struct jetsonnano_sample * head;
 
 long long int sample_count = 0;
-
-double   gpu_power_total=0;
-double   cpu_power_total=0;
-double   in_power_total=0;
-
-
+unsigned int gpu_power_total = 0;
 
 void *jetsonnano_read_samples(void *head) {
 
 	FILE *fp_log;
-	unsigned int gpu_power_value;
-	unsigned int cpu_power_value;
-	unsigned int in_power_value;
+	int gpu_power_value;
 
-
-//	int i;
-//	struct  jetsonnano_sample *t = (struct jetsonnano_sample*) head;
 	int start_flag = 0;
 	int stop_flag = 0;
 	fp_log = fopen("power_measurement_log.txt", "a");
@@ -64,22 +54,11 @@ void *jetsonnano_read_samples(void *head) {
 		if(start_flag == 0)
 			continue;
 
-		
-
-
-
-		jnano_get_ina3221(VDD_IN,  POWER,  &in_power_value);
 		jnano_get_ina3221(VDD_GPU, POWER,  &gpu_power_value);
-		jnano_get_ina3221(VDD_CPU, POWER,  &cpu_power_value);
-
-		fprintf(fp_log, "gpu_power = %u \n",   gpu_power_value);
 
 		gpu_power_total    += gpu_power_value;
-		cpu_power_total    += cpu_power_value;
-		in_power_total     += in_power_value;
+
 		sample_count++;
-
-
 
 		stop_flag = 0;
 		pthread_mutex_lock(&mutex);
@@ -108,14 +87,7 @@ void *jetsonnano_read_sample_pthread() {
 	head = (struct jetsonnano_sample *)malloc(sizeof (struct jetsonnano_sample));
 	head->next = NULL;
 
-
-	cpu_set_t cpu_set2;
-	CPU_SET(1, &cpu_set2);
 	pthread_create(&thread_ID, NULL, jetsonnano_read_samples, head);
-	sched_setaffinity(thread_ID, sizeof(cpu_set_t), &cpu_set2);
-
-//	pthread_join(thread_ID, &exit_status);
-
 
 	return head;
 }
@@ -124,15 +96,6 @@ void *jetsonnano_read_sample_pthread() {
 void jetsonnano_read_sample_start( ) {
 
 	pthread_mutex_lock(&mutex);
-
-	//printf("mutex is locked\n");
-
-	sample_count = 0;
-	gpu_power_total    = 0;
-	cpu_power_total   = 0;
-	in_power_total    = 0;
-
-
 	start = 1;
 	stop  = 0;
 	pthread_mutex_unlock(&mutex);
@@ -149,36 +112,83 @@ void jetsonnano_read_sample_stop( ) {
 	pthread_detach(thread_ID);
 }
 
-
-
-void jetsonnano_save_average_pthread(struct jetsonnano_sample *head, char *file_name) {
-
-	FILE *fp;
-
-
-//	struct jetsonnano_sample *sample = head;
-
-	fp=fopen(file_name, "a");
-
-
-
-	fprintf(fp, "gpu_power_average = %f count = %llu\n",   gpu_power_total/sample_count, sample_count);
-
-	fprintf(fp, "cpu_power_average = %f count = %llu\n",   cpu_power_total/sample_count, sample_count);
-
-	fprintf(fp, "in_power_average = %f count = %llu\n",   in_power_total/sample_count, sample_count);
-	fprintf(fp, "--------------------------------------\n");
-
-	fclose(fp);
-}
-
 void jetsonnano_clear_sample_pthread(struct jetsonnano_sample *head) {
-
+	
 	struct jetsonnano_sample *sample = head;
-	while (sample != (struct jetsonnano_sample *)NULL) {
-		struct jetsonnano_sample *next = sample->next;
-		free (sample);
-		sample = next;
-	}
+	while (sample != (struct jetsonnano_sample *)NULL)
+		{
+			struct jetsonnano_sample *next = sample->next;
+			free (sample);
+			sample = next;
+		}
 	pthread_mutex_destroy(&mutex);
 }
+
+void data_retrieval_particlefilter(){
+	printf("\n\t\t -------------------now in data_retrieval_particlefilter-------------------\n\n");
+
+	char gpu_freq[100];
+	char gpu_temp[100];
+	char gpu_voltage[100];
+	char gpu_power[100];
+
+	struct timespec tsample = {0,0};
+	float timenow, starttime;
+			
+	FILE *rate = fopen("/sys/kernel/debug/clk/override.gbus/clk_rate","r");					// add path to the sysfs file to read GPU clock
+	FILE *voltage = fopen("/sys/bus/i2c/drivers/ina3221x/6-0040/iio:device0/in_voltage1_input","r");	// add path to the sysfs file to read GPU voltage
+	FILE *temp = fopen("/sys/devices/virtual/thermal/thermal_zone5/temp","r");				// add path to the sysfs file to read GPU temperature
+	FILE *power = fopen("/sys/bus/i2c/drivers/ina3221x/6-0040/iio:device0/in_power2_input","r");		// add path to the sysfs file to read GPU power
+			
+	size_t elements_freq = fread(gpu_freq,1,20,rate);
+		
+	strtok(gpu_freq,"\n");
+
+	size_t elements_temp = fread(gpu_temp,1,20,temp);
+	strtok(gpu_temp,"\n");
+
+	size_t elements_volt = fread(gpu_voltage,1,20,voltage);
+	strtok(gpu_voltage,"\n");
+
+	size_t elements_power = fread(gpu_power,1,20,power);
+	strtok(gpu_power,"\n");
+	
+	////initialise PC here
+	
+	clock_gettime(CLOCK_MONOTONIC,&tsample);
+	starttime = (tsample.tv_sec*1.0e9 + tsample.tv_nsec)/1000000;
+
+	system("./particlefilter/run"); //run benchmark
+
+	clock_gettime(CLOCK_MONOTONIC,&tsample);
+	timenow = (tsample.tv_sec*1.0e9+tsample.tv_nsec)/1000000;
+	printf("\n\t measure_gpu_pow.c::gpu_read_samples: timestamp is: %f \n",timenow);
+
+	////record PC here
+			
+	fclose(rate);
+	fclose(temp);
+	fclose(voltage);
+	fclose(power);
+		
+	float timesample = (timenow-starttime);	// Duration of BM run
+	printf("\t measure_gpu_pow.c::gpu_read_samples: duration of BM run in ms : %f \n",timesample);
+	
+	int gpufreqMHz = atoi(gpu_freq)/1000;	// GPU freq in kHz
+	printf("\t measure_gpu_pow.c::gpu_read_samples: GPU freq in kHz : %d \n",gpufreqMHz);
+
+	float gputempdeg = atoi(gpu_temp)/1000;		// GPU temp in degrees
+	printf("\t measure_gpu_pow.c::gpu_read_samples: GPU temp in degrees : %f \n",gputempdeg);
+
+	float gpuvoltageV = atoi(gpu_voltage)/1000.0;	// GPU voltage in Volt
+	printf("\t measure_gpu_pow.c::gpu_read_samples: GPU Voltage in V : %f \n",gpuvoltageV);
+
+	float gpuvoltageW = atoi(gpu_power)/1000.0;	// GPU power in Volt
+	printf("\t measure_gpu_pow.c::gpu_read_samples: GPU power in W : %f \n",gpuvoltageW);
+
+	printf("\n\t\t PC DATA TRANSFER\n\n");
+
+
+}
+
+

@@ -26,9 +26,9 @@ char cmdbuf[256];
 
 int freqs_gpu[12] = {76800000, 153600000, 230400000, 307200000, 384000000, 460800000, 537600000, 614400000, 691200000, 768000000, 844800000, 921600000};    //GPU frequencies in MHz, mult 76.8
 
-for(pc=0;pc<12;pc++) //loop through freqs for each performance counter
+for(pc=0;pc<1;pc++) //loop through freqs for each performance counter
 {
-	printf("Setting GPU freqs\n");
+	printf("Resetting GPU configuration\n");
 
 	snprintf(cmdbuf,sizeof(cmdbuf),"./jetson_clocks.sh --set %d",freqs_gpu[0]);
 
@@ -36,9 +36,9 @@ for(pc=0;pc<12;pc++) //loop through freqs for each performance counter
 
 	usleep(1000000);
 
-	printf("Starting power monitor\n");
+	printf("Initialising power monitoring loop for current PC\n");
 
-	power_monitoring_prologue ();
+	power_monitoring_prologue();
 	
 	for(int gfreq=0;gfreq<12;gfreq++)
 	{
@@ -46,7 +46,8 @@ for(pc=0;pc<12;pc++) //loop through freqs for each performance counter
 
 		system(cmdbuf);
 
-		system("./particlefilter/run"); //launch benchmark
+		//system("./particlefilter/run"); //launch benchmark
+		data_retrieval_particlefilter();
 	}
 
 	power_monitoring_epilogue();
@@ -58,13 +59,8 @@ printf("Read GPU freqs\n");
 
 system("./jetson_clocks.sh --read");
 
+power_monitoring_stop();
 
 return 0;	
 }
-
-
-
-
-
-
 

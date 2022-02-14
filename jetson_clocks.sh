@@ -71,7 +71,7 @@ do_gpu()
 		echo "Error: Failed to set new GPU frequency!"
 	fi
 
-	echo "CurrentFreq=$GPU_CUR_FREQ CurrentVDD = $GPU_CUR_VOLT FreqOverride=$GPU_FREQ_OVERRIDE"
+	#echo "CurrentFreq=$GPU_CUR_FREQ CurrentVDD = $GPU_CUR_VOLT FreqOverride=$GPU_FREQ_OVERRIDE"
 }
 
 main ()
