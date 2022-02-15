@@ -32,53 +32,53 @@ int pc;
 int main(void) {
 
 
-FILE* fp_v;
+	FILE* fp_v;
 
-strcpy(log_file_name, "log_power_monitor");
-file_power_profile_create(log_file_name);
-fp_v=fopen(log_file_name, "a");
+	strcpy(log_file_name, "log_power_monitor");
+	file_power_profile_create(log_file_name);
+	fp_v=fopen(log_file_name, "a");
 
-char cmdbuf[256];
+	char cmdbuf[256];
 
-int freqs_gpu[12] = {76800000, 153600000, 230400000, 307200000, 384000000, 460800000, 537600000, 614400000, 691200000, 768000000, 844800000, 921600000};    //GPU frequencies in MHz, mult 76.8
+	int freqs_gpu[12] = {76800000, 153600000, 230400000, 307200000, 384000000, 460800000, 537600000, 614400000, 691200000, 768000000, 844800000, 921600000};    //GPU frequencies in MHz, mult 76.8
 
-for(pc=0;pc<1;pc++) //loop through freqs for each performance counter (13 counters)
-{
-	printf("\n\tResetting GPU configuration, reset GPU frequency to %d\n\n", freqs_gpu[0]);
-
-	snprintf(cmdbuf,sizeof(cmdbuf),"./jetson_clocks.sh --set %d",freqs_gpu[0]);
-
-	system(cmdbuf);
-
-	usleep(1000000);
-
-	printf("\n\tInitialising power monitoring loop for current PC\n");
-
-	power_monitoring_prologue();
-	
-	for(int gfreq=0;gfreq<12;gfreq++)
+	for(pc=0;pc<1;pc++) //loop through freqs for each performance counter (13 counters)
 	{
-		printf("\n\tSet GPU freq to %d for new benchmark run\n", freqs_gpu[gfreq]);
-		
-		snprintf(cmdbuf,sizeof(cmdbuf),"./jetson_clocks.sh --set %d",freqs_gpu[gfreq]);
-
+		printf("\n\tResetting GPU configuration, reset GPU frequency to %d\n\n", freqs_gpu[0]);
+	
+		snprintf(cmdbuf,sizeof(cmdbuf),"./jetson_clocks.sh --set %d",freqs_gpu[0]);
+	
 		system(cmdbuf);
-
-		//system("./particlefilter/run"); //launch benchmark -> command moved into data_retrieval_particlefilter() to resolve timing issues
-		data_retrieval_particlefilter();
+	
+		usleep(1000000);
+	
+		printf("\n\tInitialising power monitoring loop for current PC\n");
+	
+		power_monitoring_prologue();
+		
+		for(int gfreq=0;gfreq<12;gfreq++)
+		{
+			printf("\n\tSet GPU freq to %d for new benchmark run\n", freqs_gpu[gfreq]);
+			
+			snprintf(cmdbuf,sizeof(cmdbuf),"./jetson_clocks.sh --set %d",freqs_gpu[gfreq]);
+	
+			system(cmdbuf);
+	
+			//system("./particlefilter/run"); //launch benchmark -> command moved into data_retrieval_particlefilter() to resolve timing issues
+			data_retrieval_particlefilter();
+		}
+	
+		power_monitoring_epilogue();
 	}
-
-	power_monitoring_epilogue();
-}
  
-printf("Finishing power monitor\n");
+	printf("Finishing power monitor\n");
 
-printf("Read GPU freqs\n");
+	printf("Read GPU freqs\n");
 
-system("./jetson_clocks.sh --read");
+	system("./jetson_clocks.sh --read");
 
-power_monitoring_stop();
+	power_monitoring_stop();
 
-return 0;	
+	return 0;	
 }
 

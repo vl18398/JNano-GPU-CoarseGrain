@@ -55,7 +55,6 @@ void *jetsonnano_read_samples(void *head) {
 		return 0;
 	}
 
-
 	while(1) {
 
 		start_flag = 1;
@@ -170,6 +169,7 @@ void data_retrieval_particlefilter(){
 	printf("\n\tRun benchmark\n\n");
 
 	////initialise PC here, reset value and cycle -> gpu_counter_access.cpp
+	//initcounters()
 	
 	clock_gettime(CLOCK_MONOTONIC,&tsample);
 	starttime = (tsample.tv_sec*1.0e9 + tsample.tv_nsec)/1000000;
@@ -180,6 +180,7 @@ void data_retrieval_particlefilter(){
 	timenow = (tsample.tv_sec*1.0e9+tsample.tv_nsec)/1000000;
 
 	////record PC here, value and cycle -> gpu_counter_access.cpp
+	//getcountersvalue()
 	
 	printf("\n\tBenchmark run complete\n");
 

@@ -32,6 +32,7 @@ void jetsonnano_read_sample_start();
 void jetsonnano_read_sample_stop(); 
 void jetsonnano_save_average_pthread(struct jetsonnano_sample *head, char *file_name);
 void jetsonnano_clear_sample_pthread(struct jetsonnano_sample *head);
+void data_retrieval_particlefilter();
 
 void file_power_profile_create (char *file_name);
 void power_monitoring_prologue();
