@@ -1,3 +1,19 @@
+/*******************************************************************************
+--------------------------------------------------------------------------------
+
+	File		: 	pmonitor.c
+
+	Date		: 	15/02/2022
+		
+	Author		:	Matthew Burgess, building on the work of Deepthi Nanduri and Dr Jose Nunez-Janez
+		
+	Description	:	File controlling the method of setting GPU frequencies and recording data of GPU from benchmark run
+				This script is adopted from work of Nunez-Yanez et al
+				This file will be used in conjunction with the functions file measurement_threads.c
+							
+----------------------------------------------------------------------------------
+**********************************************************************************/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <cuda_runtime.h>
@@ -28,7 +44,7 @@ int freqs_gpu[12] = {76800000, 153600000, 230400000, 307200000, 384000000, 46080
 
 for(pc=0;pc<1;pc++) //loop through freqs for each performance counter
 {
-	printf("Resetting GPU configuration\n");
+	printf("\n\tResetting GPU configuration, reset GPU frequency to %d\n\n", freqs_gpu[0]);
 
 	snprintf(cmdbuf,sizeof(cmdbuf),"./jetson_clocks.sh --set %d",freqs_gpu[0]);
 
@@ -36,17 +52,19 @@ for(pc=0;pc<1;pc++) //loop through freqs for each performance counter
 
 	usleep(1000000);
 
-	printf("Initialising power monitoring loop for current PC\n");
+	printf("\n\tInitialising power monitoring loop for current PC\n");
 
 	power_monitoring_prologue();
 	
 	for(int gfreq=0;gfreq<12;gfreq++)
 	{
+		printf("\n\tSet GPU freq to %d for new benchmark run\n", freqs_gpu[gfreq]);
+		
 		snprintf(cmdbuf,sizeof(cmdbuf),"./jetson_clocks.sh --set %d",freqs_gpu[gfreq]);
 
 		system(cmdbuf);
 
-		//system("./particlefilter/run"); //launch benchmark
+		//system("./particlefilter/run"); //launch benchmark -> command moved into data_retrieval_particlefilter() to resolve timing issues
 		data_retrieval_particlefilter();
 	}
 

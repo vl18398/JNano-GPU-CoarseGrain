@@ -1,9 +1,19 @@
-/*
- * measurement_threads.c
- *
- *  Created on: May 15, 2015
- *      Author: csxmh
- */
+/*******************************************************************************
+--------------------------------------------------------------------------------
+
+	File		: 	measurement_threads.c
+
+	Date		: 	15/02/2022
+		
+	Author		:	Matthew Burgess, building on the work of Deepthi Nanduri and Dr Jose Nunez-Janez
+		
+	Description	:	File containting all essential functions to read physical sensors and performance counters from GPU
+				PMU counters and launching threads in parallel to launch BM programs. 
+				This script is adopted from work of Nunez-Yanez et al
+				This file will be used in conjunction with the top file pmonitor.c
+							
+----------------------------------------------------------------------------------
+**********************************************************************************/
 
 #define _GNU_SOURCE             /* See feature_test_macros(7) */
 #ifndef __USE_GNU
@@ -19,6 +29,8 @@
 #include "jnano_inst.h"
 #include "monitoring.h"
 
+extern int pc;
+
 int start;
 pthread_mutex_t mutex;
 
@@ -29,6 +41,9 @@ struct jetsonnano_sample * head;
 
 long long int sample_count = 0;
 unsigned int gpu_power_total = 0;
+
+
+
 
 void *jetsonnano_read_samples(void *head) {
 
@@ -125,7 +140,7 @@ void jetsonnano_clear_sample_pthread(struct jetsonnano_sample *head) {
 }
 
 void data_retrieval_particlefilter(){
-	printf("\n\t\t -------------------now in data_retrieval_particlefilter-------------------\n\n");
+	printf("\n\t-------------------ENTERING data_retrieval_particlefilter-------------------\n");
 
 	char gpu_freq[100];
 	char gpu_temp[100];
@@ -152,8 +167,12 @@ void data_retrieval_particlefilter(){
 
 	size_t elements_power = fread(gpu_power,1,20,power);
 	strtok(gpu_power,"\n");
+
+	printf("\n\tInitialise PC\n");
 	
 	////initialise PC here
+
+	printf("\n\tRun benchmark\n\n");
 	
 	clock_gettime(CLOCK_MONOTONIC,&tsample);
 	starttime = (tsample.tv_sec*1.0e9 + tsample.tv_nsec)/1000000;
@@ -162,7 +181,10 @@ void data_retrieval_particlefilter(){
 
 	clock_gettime(CLOCK_MONOTONIC,&tsample);
 	timenow = (tsample.tv_sec*1.0e9+tsample.tv_nsec)/1000000;
-	printf("\n\t measure_gpu_pow.c::gpu_read_samples: timestamp is: %f \n",timenow);
+	
+	printf("\n\tBenchmark run complete\n");
+
+	printf("\n\tmeasure_gpu_pow.c::gpu_read_samples: timestamp is: %f \n",timenow);
 
 	////record PC here
 			
@@ -172,22 +194,23 @@ void data_retrieval_particlefilter(){
 	fclose(power);
 		
 	float timesample = (timenow-starttime);	// Duration of BM run
-	printf("\t measure_gpu_pow.c::gpu_read_samples: duration of BM run in ms : %f \n",timesample);
+	printf("\tmeasure_gpu_pow.c::gpu_read_samples: duration of BM run in ms : %f \n",timesample);
 	
 	int gpufreqMHz = atoi(gpu_freq)/1000;	// GPU freq in kHz
-	printf("\t measure_gpu_pow.c::gpu_read_samples: GPU freq in kHz : %d \n",gpufreqMHz);
+	printf("\tmeasure_gpu_pow.c::gpu_read_samples: GPU freq in kHz : %d \n",gpufreqMHz);
 
 	float gputempdeg = atoi(gpu_temp)/1000;		// GPU temp in degrees
-	printf("\t measure_gpu_pow.c::gpu_read_samples: GPU temp in degrees : %f \n",gputempdeg);
+	printf("\tmeasure_gpu_pow.c::gpu_read_samples: GPU temp in degrees : %f \n",gputempdeg);
 
 	float gpuvoltageV = atoi(gpu_voltage)/1000.0;	// GPU voltage in Volt
-	printf("\t measure_gpu_pow.c::gpu_read_samples: GPU Voltage in V : %f \n",gpuvoltageV);
+	printf("\tmeasure_gpu_pow.c::gpu_read_samples: GPU Voltage in V : %f \n",gpuvoltageV);
 
 	float gpuvoltageW = atoi(gpu_power)/1000.0;	// GPU power in Volt
-	printf("\t measure_gpu_pow.c::gpu_read_samples: GPU power in W : %f \n",gpuvoltageW);
+	printf("\tmeasure_gpu_pow.c::gpu_read_samples: GPU power in W : %f \n",gpuvoltageW);
 
-	printf("\n\t\t PC DATA TRANSFER\n\n");
+	printf("\n\tRecord PC and sensor data for run\n\n");
 
+	printf("\n\t-------------------EXITING data_retrieval_particlefilter-------------------\n\n");
 
 }
 

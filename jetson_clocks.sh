@@ -37,7 +37,7 @@ NC='\e[0m' # No Color
 do_temp()
 {
 	GPU_TEMP=`cat /sys/devices/virtual/thermal/thermal_zone2/temp`
-	echo  "GPU current temp=$GPU_TEMP"
+	echo -e "\tGPU current temp=$GPU_TEMP"
 }
 
 read_gpu()
