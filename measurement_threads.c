@@ -15,7 +15,7 @@
 ----------------------------------------------------------------------------------
 **********************************************************************************/
 
-#define _GNU_SOURCE             /* See feature_test_macros(7) */
+#define _GNU_SOURCE
 #ifndef __USE_GNU
 #define __USE_GNU
 #endif
@@ -41,9 +41,6 @@ struct jetsonnano_sample * head;
 
 long long int sample_count = 0;
 unsigned int gpu_power_total = 0;
-
-
-
 
 void *jetsonnano_read_samples(void *head) {
 
@@ -169,10 +166,10 @@ void data_retrieval_particlefilter(){
 	strtok(gpu_power,"\n");
 
 	printf("\n\tInitialise PC\n");
-	
-	////initialise PC here
 
 	printf("\n\tRun benchmark\n\n");
+
+	////initialise PC here, reset value and cycle -> gpu_counter_access.cpp
 	
 	clock_gettime(CLOCK_MONOTONIC,&tsample);
 	starttime = (tsample.tv_sec*1.0e9 + tsample.tv_nsec)/1000000;
@@ -181,13 +178,13 @@ void data_retrieval_particlefilter(){
 
 	clock_gettime(CLOCK_MONOTONIC,&tsample);
 	timenow = (tsample.tv_sec*1.0e9+tsample.tv_nsec)/1000000;
+
+	////record PC here, value and cycle -> gpu_counter_access.cpp
 	
 	printf("\n\tBenchmark run complete\n");
 
 	printf("\n\tmeasure_gpu_pow.c::gpu_read_samples: timestamp is: %f \n",timenow);
 
-	////record PC here
-			
 	fclose(rate);
 	fclose(temp);
 	fclose(voltage);
@@ -211,7 +208,5 @@ void data_retrieval_particlefilter(){
 	printf("\n\tRecord PC and sensor data for run\n\n");
 
 	printf("\n\t-------------------EXITING data_retrieval_particlefilter-------------------\n\n");
-
 }
-
 
