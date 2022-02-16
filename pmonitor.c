@@ -42,7 +42,7 @@ int main(void) {
 
 	int freqs_gpu[12] = {76800000, 153600000, 230400000, 307200000, 384000000, 460800000, 537600000, 614400000, 691200000, 768000000, 844800000, 921600000};    //GPU frequencies in MHz, mult 76.8
 
-	for(pc=0;pc<1;pc++) //loop through freqs for each performance counter (13 counters)
+	for(pc=0;pc<2;pc++) //loop through freqs for each performance counter (13 counters)
 	{
 		printf("\n\tResetting GPU configuration, reset GPU frequency to %d\n\n", freqs_gpu[0]);
 	
